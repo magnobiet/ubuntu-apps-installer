@@ -1,0 +1,720 @@
+#!/bin/bash
+
+function restart {
+
+  init 6
+
+}
+
+function systemUpdate {
+
+  apt-get update
+  apt-get upgrade -y
+  apt-get -f install -y
+
+}
+
+function systemUpdateVersion {
+
+  apt-get dist-upgrade
+
+}
+
+function utilsInstaller {
+
+  apt-get install -y g++ make build-essential \
+                     curl tree vim \
+                     whois sshfs httpie ntp \
+                     zip unzip p7zip-full
+
+}
+
+function restrictedExtrasInstaller {
+
+  apt-get install -y ubuntu-restricted-extras
+
+}
+
+function topInstaller {
+
+  apt-get install -y htop iftop iotop
+
+}
+
+function unityTweakInstaller {
+
+  apt-get install -y unity-tweak-tool
+
+}
+
+
+function dconfEditor {
+
+  apt-get install -y dconf-editor
+
+}
+
+function vlcInstaller {
+
+  apt-get install -y vlc
+
+}
+
+function filezillaInstaller {
+
+  apt-get install -y filezilla
+
+}
+
+function fixNpmGlobal {
+
+  mkdir ~/.npm-global
+  npm config set prefix '~/.npm-global'
+  echo "export PATH=~/.npm-global/bin:$PATH" >> ~/.profile
+  source ~/.profile
+
+}
+
+function nodeJSInstaller {
+
+  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+  apt-get install -y nodejs
+
+  fixNpmGlobal
+
+}
+
+function nvmInstaller {
+
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+
+}
+
+function nodeJSPackagesInstaller {
+
+  npm install -g grunt-cli gulp bower yo jshint jscs csslint express sails npm-check-updates
+
+}
+
+function pythonInstaller {
+
+  apt-get install -y python python-software-properties python-dev python-pip
+
+}
+
+function theFuckInstaller {
+
+  if [ ! `which python` ]; then
+    pythonInstaller
+  fi
+
+  pip install thefuck
+
+}
+
+function rubyInstaller {
+
+  apt-get install -y ruby-full
+
+}
+
+function rubyPackagesInstaller {
+
+  gem install sass scss-lint rhc
+
+}
+
+function nginxInstaller {
+
+  wget -c -P $DOWNLOADS http://nginx.org/keys/nginx_signing.key
+  apt-key add $DOWNLOADS/nginx_signing.key
+
+  sh -c "echo 'deb http://nginx.org/packages/ubuntu/ trusty nginx' >> /etc/apt/sources.list"
+  sh -c "echo 'deb-src http://nginx.org/packages/ubuntu/ trusty nginx' >> /etc/apt/sources.list"
+
+  apt-get update
+  apt-get install -y nginx
+
+}
+
+function apacheInstaller {
+
+  apt-get install -y apache2
+
+}
+
+function phpInstaller {
+
+  apt-get install -y php5 \
+                     php5-cli \
+                     php5-curl \
+                     php5-dev \
+                     php5-fpm \
+                     php5-gd \
+                     php5-geoip \
+                     php5-json \
+                     php5-mcrypt \
+                     php5-memcache \
+                     php5-memcached \
+                     php5-mongo \
+                     php5-mysql \
+                     php5-oauth \
+                     php5-pgsql \
+                     php5-sqlite \
+                     php5-xcache \
+                     php5-xdebug
+
+}
+
+function composerInstaller {
+
+  cd  $DOWNLOADS
+  curl -sS https://getcomposer.org/installer | php
+  mv composer.phar /usr/local/bin/composer
+
+}
+
+function mysqlInstaller {
+
+  apt-get install -y mysql-server mysql-common mysql-client
+
+}
+
+function mysqlWorkbenchInstaller {
+
+  apt-get install -y mysql-workbench
+
+}
+
+function postgresInstaller {
+
+  sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add
+  apt-get update
+
+  apt-get install -y postgresql-9.5 postgresql-client-9.5
+
+}
+
+function pgAdminInstaller {
+
+  apt-get install -y pgadmin3
+
+}
+
+function mongoDBInstaller {
+
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+  echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+  apt-get update
+
+  apt-get install -y mongodb-org
+
+  service mongod start
+
+}
+
+function mongoCheffInstaller {
+
+  local mongochef_full_version=3.3.0.1717
+  local mongochef_version=3.5.1
+  local mongochef_file=mongochef-linux-x64-dist
+  local mongochef_home=/opt/mongochef
+
+  cd $DOWNLOADS
+  wget -c https://cdn.3t.io/mongochef/linux/$mongochef_full_version/$mongochef_file.tar.gz
+
+  tar -zxvf $mongochef_file.tar.gz
+  mv mongochef-$mongochef_version-linux-x64-dist /opt/
+
+  if [ -d "$mongochef_home" ]; then
+    rm $mongochef_home
+  fi
+
+  ln -s /opt/mongochef-$mongochef_version-linux-x64-dist/bin $mongochef_home
+
+}
+
+function sublimeTextInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.sublimetext.com/sublime-text_build-3114_amd64.deb
+  dpkg -i sublime-text_build*.deb
+
+  #cd $USER_HOME/.config
+  #cp sublime-text-3 sublime-text-3-bkp
+  #su - $USER_NAME -c "git clone git@github.com:magnobiet/sublime-text.git $USER_HOME/.config/sublime-text-3"
+
+}
+
+function dropboxInstaller {
+
+  cd $DOWNLOADS
+
+  wget -c https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+  apt-get install -y python-gpgme
+  dpkg -i dropbox*.deb
+
+}
+
+function ownCloudInstaller {
+
+  sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+  apt-get update
+
+  apt-get install -y owncloud-client
+
+  cd $DOWNLOADS
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add
+  apt-key add - < Release.key
+
+}
+
+function megaInstaller {
+
+  cd $DOWNLOADS
+
+  wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/megasync-xUbuntu_14.04_amd64.deb
+  wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/nautilus-megasync-xUbuntu_14.04_amd64.deb
+
+  dpkg -i megasync*.deb
+  dpkg -i nautilus-megasync*.deb
+
+}
+
+function chromeInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+  dpkg -i google-chrome*.deb
+
+}
+
+function timeShiftInstaller {
+
+  apt-add-repository -y ppa:teejee2008/ppa
+  apt-get update
+
+  apt-get install -y timeshift
+
+}
+
+function screenCloudInstaller {
+
+  sh -c "echo 'deb http://download.opensuse.org/repositories/home:/olav-st/xUbuntu_14.04/ /' >> /etc/apt/sources.list.d/screencloud.list"
+  apt-get update
+
+  apt-get install -y screencloud --force-yes
+
+  wget http://download.opensuse.org/repositories/home:olav-st/xUbuntu_14.04/Release.key
+  apt-key add - < Release.key
+
+}
+
+function keePassXInstaller {
+
+  apt-get install -y keepassx
+
+}
+
+function resetMsMiceInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://downloads.sourceforge.net/project/resetmsmice/resetmsmice_1.1.2-1_amd64.deb
+
+  dpkg -i esetmsmice_*.deb
+
+}
+
+function ajentiInstaller {
+
+  wget -O- https://raw.github.com/ajenti/ajenti/1.x/scripts/install-ubuntu.sh | sh
+
+}
+
+function webminInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://prdownloads.sourceforge.net/webadmin/webmin_1.791_all.deb
+
+  dpkg -i webmin_*.deb
+
+}
+
+function spotifyInstaller {
+
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+
+  echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list
+
+  apt-get update
+  apt-get install spotify-client
+
+}
+
+function ugetInstaller {
+
+  add-apt-repository -y ppa:plushuang-tw/uget-stable
+  apt-get update
+
+  apt-get install -y uget
+
+}
+
+function fontsInstaller {
+
+  # Windows
+  apt-get install -y ttf-mscorefonts-installer
+
+  # Mac OS X
+  wget http://dl.dropbox.com/u/26209128/mac_fonts.tar.gz
+  tar zxvf mac_fonts.tar.gz
+  mv fonts /usr/share/fonts/
+
+  fc-cache -f -v
+
+}
+
+function diffToolsInstaller {
+
+  wget -O diffuse_0.4.8-1_all.deb -c http://downloads.sourceforge.net/project/diffuse/diffuse/0.4.8/diffuse_0.4.8-1_all.deb?r=http%3A%2F%2Fdiffuse.sourceforge.net%2Fdownload.html&ts=1460162803&use_mirror=heanet
+  dpkg -i diffuse*.deb
+
+  apt-get install -y meld
+
+}
+
+function virtualBoxInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://download.virtualbox.org/virtualbox/5.0.20/virtualbox-5.0_5.0.20-106931~Ubuntu~trusty_amd64.deb
+  wget -c http://download.virtualbox.org/virtualbox/5.0.20/Oracle_VM_VirtualBox_Extension_Pack-5.0.20-106931.vbox-extpack
+  dpkg -i virtualbox*.deb
+
+}
+
+function recompileVirtualBoxKernelModules {
+
+  VBoxManage --version
+  /sbin/rcvboxdrv setup
+
+}
+
+function vagrantInstaller {
+
+  if [ ! `which virtualbox` ]; then
+    virtualBoxInstaller
+  fi
+
+  cd $DOWNLOADS
+
+  wget -c https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb
+  dpkg -i vagrant*.deb
+
+  apt-get install -y vagrant-bash-completion
+
+}
+
+function javaInstaller {
+
+  add-apt-repository -y ppa:webupd8team/java
+  apt-get update
+
+  apt-get install -y python-software-properties \
+                     oracle-java8-installer \
+                     oracle-java8-set-default
+
+}
+
+function mavenInstaller {
+
+  local mvn_version=3.3.9
+
+  cd $DOWNLOADS
+
+  wget -c http://ftp.unicamp.br/pub/apache/maven/maven-3/$mvn_version/binaries/apache-maven-$mvn_version-bin.tar.gz
+
+  tar -zxvf apache-maven-$mvn_version-bin.tar.gz
+  rm -f apache-maven-$mvn_version-bin.tar.gz
+
+  if [ -d "/opt/apache-maven-$mvn_version" ]; then
+    rm -Rf /opt/apache-maven-$mvn_version
+  fi
+
+  mv apache-maven-$mvn_version /opt/
+
+  echo "PATH=$PATH:/opt/apache-maven-$mvn_version/bin" >> ~/.profile
+
+}
+
+function netbeansInstaller {
+
+  local netbeans_version=8.1
+
+  cd $DOWNLOADS
+  wget -c http://download.netbeans.org/netbeans/$netbeans_version/final/bundles/netbeans-$netbeans_version-linux.sh
+  sh netbeans-$netbeans_version-linux.sh
+
+}
+
+function androidStudioInstaller {
+
+  apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+
+  cd $DOWNLOADS
+
+  wget -c https://dl.google.com/dl/android/studio/ide-zips/2.1.0.9/android-studio-ide-143.2790544-linux.zip
+
+  if [ ! `which unzip` ]; then
+    apt-get install -y unzip
+  fi
+
+  unzip android-studio-ide-143.2790544-linux.zip
+  mv android-studio /opt/
+
+    echo '[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Icon=/opt/android-studio/bin/studio.png
+Exec="/opt/android-studio/bin/studio.sh" %f
+Comment=Develop with pleasure!
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=android-studio
+' > /usr/share/applications/android-studio.desktop
+
+}
+
+function visualStudioCodeInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://go.microsoft.com/fwlink/?LinkID=760868 -O vscode-amd64.deb
+  dpkg -i vscode-amd64.deb
+
+}
+
+function homesteadInstaller {
+
+  if [ ! `which vagrant` ]; then
+    vagrantInstaller
+  fi
+
+  vagrant box add laravel/homestead
+
+  cd ~
+  git clone https://github.com/laravel/homestead.git Homestead
+
+  cd ~/Homestead/
+  bash init.sh
+
+}
+
+function texliveInstaller {
+
+  apt-get install -y texlive-full
+  apt-get -f install -y
+
+}
+
+function texmakerInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://www.xm1math.net/texmaker/texmaker_ubuntu_14.04_4.5_amd64.deb
+  dpkg -i texmaker*.deb
+
+}
+
+function kazamScreencasterInstaller {
+
+  add-apt-repository -y ppa:kazam-team/unstable-series
+  apt-get update
+  apt-get install -y kazam
+
+}
+
+function skypeInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://get.skype.com/go/getskype-linux-beta-ubuntu-64 -O skype-ubuntu.deb
+  dpkg -i skype*.deb
+
+  apt-get install sni-qt:i386
+
+  if [ ! `which dconf-editor` ]; then
+    dconfEditor
+  fi
+
+  gsettings set com.canonical.Unity.Panel systray-whitelist "['JavaEmbeddedFrame', 'Wine', 'Update-notifier', 'Skype']"
+
+}
+
+function viberInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
+  dpkg -i viber.deb
+
+}
+
+function nylasN1Installer {
+
+  cd $DOWNLOADS
+  wget -c https://edgehill.nylas.com/download?platform=linux-deb -O N1.deb
+  dpkg -i N1.deb
+
+}
+
+function braveInstaller {
+
+  cd $DOWNLOADS
+  wget -O brave.deb https://laptop-updates.brave.com/latest/dev/ubuntu64
+  dpkg -i brave.deb
+
+}
+
+function yandexDiskInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
+  dpkg -i yandex*.deb
+
+}
+
+function yumiInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://www.pendrivelinux.com/downloads/YUMI/ubuntu/yumi_0.0.1-1_all.deb
+  dpkg -i yumi*.deb
+
+}
+
+function steamInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://steamcdn-a.akamaihd.net/client/installer/steam.deb
+  dpkg -i steam.deb
+
+}
+
+function phpStormInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/webide/PhpStorm-2016.1.tar.gz
+  tar -zxvf PhpStorm-2016.1.tar.gz
+
+}
+
+function dataGripInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/datagrip/datagrip-2016.1.tar.gz
+  tar -zxvf datagrip-2016.1.tar.gz
+
+}
+
+function ideaCommunityInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/idea/ideaIC-2016.1.1.tar.gz
+  tar -zxvf ideaIC-2016.1.1.tar.gz
+
+}
+
+function ideaUltimateInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/idea/ideaIU-2016.1.1.tar.gz
+  tar -zxvf ideaIU-2016.1.1.tar.gz
+
+}
+
+function pyCharmProfessionalInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/python/pycharm-professional-2016.1.2.tar.gz
+  tar -zxvf pycharm-professional-2016.1.2.tar.gz
+
+}
+
+function pyCharmCommunityInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/python/pycharm-community-2016.1.2.tar.gz
+  tar -zxvf pycharm-community-2016.1.2.tar.gz
+
+}
+
+function pyCharmEduInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/python/pycharm-edu-2.0.3.tar.gz
+  tar -zxvf pycharm-edu-2.0.3.tar.gz
+
+}
+
+function rubyMineInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/ruby/RubyMine-2016.1.tar.gz
+  tar -zxvf RubyMine-2016.1.tar.gz
+
+}
+
+function clionInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/cpp/CLion-2016.1.1.tar.gz
+  tar -zxvf CLion-2016.1.1.tar.gz
+
+}
+
+function webStormInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://download.jetbrains.com/webstorm/WebStorm-2016.1.1.tar.gz
+  tar -zxvf WebStorm-2016.1.1.tar.gz
+
+}
+
+function open365Installer {
+
+  cd $DOWNLOADS
+  wget -c https://s3-eu-west-1.amazonaws.com/open365.io/downloads/open365-client-1.0.0.112428-17.deb
+  dpkg -i open365-client*.deb
+
+}
+
+function meoCloudInstaller {
+
+  cd $DOWNLOADS
+  wget -c https://meocloud.pt/binaries/linux/amd64/meocloud-gui-latest_amd64_beta.deb
+  dpkg -i meocloud-gui*.deb
+
+}
+
+function genymotionInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://files2.genymotion.com/genymotion/genymotion-2.6.0/genymotion-2.6.0-linux_x64.bin
+
+  sh genymotion*.bin
+
+}
+
+function zshInstaller {
+
+  apt-get install -y zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+}
+
+function teamViewerInstaller {
+
+  cd $DOWNLOADS
+  wget -c http://download.teamviewer.com/download/teamviewer_i386.deb
+  dpkg -i teamviewer*.deb
+
+}
