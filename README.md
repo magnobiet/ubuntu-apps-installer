@@ -1,4 +1,4 @@
-# Ubuntu Apps Installer
+# 🐧 Ubuntu Apps Installer
 
 ![Screenshot](screenshot.png)
 
