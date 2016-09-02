@@ -17,6 +17,15 @@ TITLE="Ubuntu Apps Installer"
 USER_NAME=$SUDO_USER
 USER_HOME=/home/$USER_NAME
 DOWNLOADS=~/Downloads
+OS_NAME=`lsb_release -i | sed 's/Distributor ID:\t//g'`
+OS_VERSION=`lsb_release -r | sed 's/Release:\t//g'`
+
+if [ $OS_NAME != "Ubuntu" ]; then
+
+  echo -e '\033[1;31mThis operating system is not supported.\033[0m\n'
+  exit 1
+
+fi
 
 source apps
 

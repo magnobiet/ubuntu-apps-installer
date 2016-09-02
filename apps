@@ -86,7 +86,7 @@ function nodeJSInstaller {
 
 function nvmInstaller {
 
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
 
 }
 
@@ -188,10 +188,19 @@ function mysqlWorkbenchInstaller {
 
 function postgresInstaller {
 
-  sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add
-  apt-get update
+  if [ $OS_VERSION == "16.04" ]; then
 
+    sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+
+  fi
+
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add
+
+  apt-get update
   apt-get install -y postgresql-9.5 postgresql-client-9.5
 
 }
@@ -204,11 +213,23 @@ function pgAdminInstaller {
 
 function mongoDBInstaller {
 
+  #
+  # https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/
+  #
+
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-  echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+  if [ $OS_VERSION == "16.04" ]; then
+
+    echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+  fi
 
   apt-get update
-
   apt-get install -y mongodb-org
 
   service mongod start
@@ -242,9 +263,9 @@ function sublimeTextInstaller {
   wget -c https://download.sublimetext.com/sublime-text_build-3114_amd64.deb
   dpkg -i sublime-text_build*.deb
 
-  #cd $USER_HOME/.config
-  #cp sublime-text-3 sublime-text-3-bkp
-  #su - $USER_NAME -c "git clone git@github.com:magnobiet/sublime-text.git $USER_HOME/.config/sublime-text-3"
+  # cd $USER_HOME/.config
+  # cp sublime-text-3 sublime-text-3-bkp
+  # su - $USER_NAME -c "git clone git@github.com:magnobiet/sublime-text.git $USER_HOME/.config/sublime-text-3"
 
 }
 
@@ -260,23 +281,46 @@ function dropboxInstaller {
 
 function ownCloudInstaller {
 
-  sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+  #
+  # https://software.opensuse.org/download/package?project=isv:ownCloud:desktop&package=owncloud-client
+  #
+
+  if [ $OS_VERSION == "16.04" ]; then
+
+    sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+    wget --quiet -O - http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_16.04/Release.key | apt-key add
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+    wget --quiet -O - http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04/Release.key | apt-key add
+
+  fi
+
+  apt-get install owncloud-client
   apt-get update
-
-  apt-get install -y owncloud-client
-
-  cd $DOWNLOADS
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add
-  apt-key add - < Release.key
 
 }
 
 function megaInstaller {
 
+  #
+  # https://mega.nz/#sync
+  #
+
   cd $DOWNLOADS
 
-  wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/megasync-xUbuntu_14.04_amd64.deb
-  wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/nautilus-megasync-xUbuntu_14.04_amd64.deb
+  if [ $OS_VERSION == "16.04" ]; then
+
+    wget -c https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb
+    wget -c https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/nautilus-megasync-xUbuntu_16.04_amd64.deb
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/megasync-xUbuntu_14.04_amd64.deb
+    wget -c https://mega.nz/linux/MEGAsync/xUbuntu_14.04/amd64/nautilus-megasync-xUbuntu_14.04_amd64.deb
+
+  fi
 
   dpkg -i megasync*.deb
   dpkg -i nautilus-megasync*.deb
@@ -303,13 +347,20 @@ function timeShiftInstaller {
 
 function screenCloudInstaller {
 
-  sh -c "echo 'deb http://download.opensuse.org/repositories/home:/olav-st/xUbuntu_14.04/ /' >> /etc/apt/sources.list.d/screencloud.list"
+  if [ $OS_VERSION == "16.04" ]; then
+
+    sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/olav-st/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/screencloud.list"
+    wget --quiet -O - http://download.opensuse.org/repositories/home:olav-st/xUbuntu_16.04/Release.key | apt-key add
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    sh -c "echo 'deb http://download.opensuse.org/repositories/home:/olav-st/xUbuntu_14.04/ /' >> /etc/apt/sources.list.d/screencloud.list"
+    wget --quiet -O - http://download.opensuse.org/repositories/home:olav-st/xUbuntu_14.04/Release.key | apt-key add
+
+  fi
+
   apt-get update
-
   apt-get install -y screencloud --force-yes
-
-  wget http://download.opensuse.org/repositories/home:olav-st/xUbuntu_14.04/Release.key
-  apt-key add - < Release.key
 
 }
 
@@ -337,7 +388,7 @@ function ajentiInstaller {
 function webminInstaller {
 
   cd $DOWNLOADS
-  wget -c http://prdownloads.sourceforge.net/webadmin/webmin_1.791_all.deb
+  wget -c http://prdownloads.sourceforge.net/webadmin/webmin_1.810_all.deb
 
   dpkg -i webmin_*.deb
 
@@ -389,8 +440,19 @@ function diffToolsInstaller {
 function virtualBoxInstaller {
 
   cd $DOWNLOADS
-  wget -c http://download.virtualbox.org/virtualbox/5.0.20/virtualbox-5.0_5.0.20-106931~Ubuntu~trusty_amd64.deb
-  wget -c http://download.virtualbox.org/virtualbox/5.0.20/Oracle_VM_VirtualBox_Extension_Pack-5.0.20-106931.vbox-extpack
+
+  if [ $OS_VERSION == "16.04" ]; then
+
+    wget -c http://download.virtualbox.org/virtualbox/5.1.4/virtualbox-5.1_5.1.4-110228~Ubuntu~xenial_amd64.deb
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    wget -c http://download.virtualbox.org/virtualbox/5.1.4/virtualbox-5.1_5.1.4-110228~Ubuntu~trusty_amd64.deb
+
+  fi
+
+  wget -c http://download.virtualbox.org/virtualbox/5.1.4/Oracle_VM_VirtualBox_Extension_Pack-5.1.4-110228.vbox-extpack
+
   dpkg -i virtualbox*.deb
 
 }
@@ -410,7 +472,7 @@ function vagrantInstaller {
 
   cd $DOWNLOADS
 
-  wget -c https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb
+  wget -c https://releases.hashicorp.com/vagrant/1.8.5/vagrant_1.8.5_x86_64.deb
   dpkg -i vagrant*.deb
 
   apt-get install -y vagrant-bash-completion
@@ -465,13 +527,13 @@ function androidStudioInstaller {
 
   cd $DOWNLOADS
 
-  wget -c https://dl.google.com/dl/android/studio/ide-zips/2.1.0.9/android-studio-ide-143.2790544-linux.zip
+  wget -c https://dl.google.com/dl/android/studio/ide-zips/2.1.3.0/android-studio-ide-143.3101438-linux.zip
 
   if [ ! `which unzip` ]; then
     apt-get install -y unzip
   fi
 
-  unzip android-studio-ide-143.2790544-linux.zip
+  unzip android-studio-ide-143.3101438-linux.zip
   mv android-studio /opt/
 
     echo '[Desktop Entry]
@@ -521,8 +583,22 @@ function texliveInstaller {
 
 function texmakerInstaller {
 
+  #
+  # http://www.xm1math.net/texmaker/download.html#linux
+  #
+
   cd $DOWNLOADS
-  wget -c http://www.xm1math.net/texmaker/texmaker_ubuntu_14.04_4.5_amd64.deb
+
+  if [ $OS_VERSION == "16.04" ]; then
+
+    wget -c http://www.xm1math.net/texmaker/texmaker_ubuntu_16.04_4.5_amd64.deb
+
+  elif [ $OS_VERSION == "14.04" ]; then
+
+    wget -c http://www.xm1math.net/texmaker/texmaker_ubuntu_14.04_4.5_amd64.deb
+
+  fi
+
   dpkg -i texmaker*.deb
 
 }
@@ -601,6 +677,10 @@ function steamInstaller {
 
 function phpStormInstaller {
 
+  #
+  # TODO
+  #
+
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/webide/PhpStorm-2016.1.tar.gz
   tar -zxvf PhpStorm-2016.1.tar.gz
@@ -608,6 +688,10 @@ function phpStormInstaller {
 }
 
 function dataGripInstaller {
+
+  #
+  # TODO
+  #
 
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/datagrip/datagrip-2016.1.tar.gz
@@ -617,6 +701,10 @@ function dataGripInstaller {
 
 function ideaCommunityInstaller {
 
+  #
+  # TODO
+  #
+
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/idea/ideaIC-2016.1.1.tar.gz
   tar -zxvf ideaIC-2016.1.1.tar.gz
@@ -624,6 +712,10 @@ function ideaCommunityInstaller {
 }
 
 function ideaUltimateInstaller {
+
+  #
+  # TODO
+  #
 
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/idea/ideaIU-2016.1.1.tar.gz
@@ -633,6 +725,10 @@ function ideaUltimateInstaller {
 
 function pyCharmProfessionalInstaller {
 
+  #
+  # TODO
+  #
+
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/python/pycharm-professional-2016.1.2.tar.gz
   tar -zxvf pycharm-professional-2016.1.2.tar.gz
@@ -640,6 +736,10 @@ function pyCharmProfessionalInstaller {
 }
 
 function pyCharmCommunityInstaller {
+
+  #
+  # TODO
+  #
 
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/python/pycharm-community-2016.1.2.tar.gz
@@ -649,6 +749,10 @@ function pyCharmCommunityInstaller {
 
 function pyCharmEduInstaller {
 
+  #
+  # TODO
+  #
+
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/python/pycharm-edu-2.0.3.tar.gz
   tar -zxvf pycharm-edu-2.0.3.tar.gz
@@ -656,6 +760,10 @@ function pyCharmEduInstaller {
 }
 
 function rubyMineInstaller {
+
+  #
+  # TODO
+  #
 
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/ruby/RubyMine-2016.1.tar.gz
@@ -665,6 +773,10 @@ function rubyMineInstaller {
 
 function clionInstaller {
 
+  #
+  # TODO
+  #
+
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/cpp/CLion-2016.1.1.tar.gz
   tar -zxvf CLion-2016.1.1.tar.gz
@@ -672,6 +784,10 @@ function clionInstaller {
 }
 
 function webStormInstaller {
+
+  #
+  # TODO
+  #
 
   cd $DOWNLOADS
   wget -c https://download.jetbrains.com/webstorm/WebStorm-2016.1.1.tar.gz
