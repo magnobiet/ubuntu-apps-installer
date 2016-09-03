@@ -102,8 +102,10 @@ options=(
   67 "Genymotion"                                                                                                                    off
   68 "ZSH"                                                                                                                           off
   69 "TeamViewer"                                                                                                                    off
-  70 "System Update"                                                                                                                 on
-  71 "Restart after install"                                                                                                         off
+  70 "Ruby Version Manager"                                                                                                          off
+  71 "System Load Indicator"                                                                                                         off
+  72 "System Update"                                                                                                                 on
+  73 "Restart after install"                                                                                                         off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -185,8 +187,10 @@ for choice in $choices; do
     67) genymotionInstaller          ;;
     68) zshInstaller                 ;;
     69) teamViewerInstaller          ;;
-    70) systemUpdate                 ;;
-    71) restart                      ;;
+    70) rvmInstaller                 ;;
+    71) systemLoadIndicator          ;;
+    72) systemUpdate                 ;;
+    73) restart                      ;;
 
   esac
 

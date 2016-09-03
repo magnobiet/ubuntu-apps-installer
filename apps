@@ -112,6 +112,14 @@ function theFuckInstaller {
 
 }
 
+function rvmInstaller {
+
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  curl -sSL https://get.rvm.io | bash -s stable
+  source $HOME/.rvm/scripts/rvm
+
+}
+
 function rubyInstaller {
 
   apt-get install -y ruby-full
@@ -832,5 +840,11 @@ function teamViewerInstaller {
   cd $DOWNLOADS
   wget -c http://download.teamviewer.com/download/teamviewer_i386.deb
   dpkg -i teamviewer*.deb
+
+}
+
+function systemLoadIndicator {
+
+  apt-get install indicator-multiload
 
 }
