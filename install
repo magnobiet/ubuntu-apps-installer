@@ -104,8 +104,9 @@ options=(
   69 "TeamViewer"                                                                                                                    off
   70 "Ruby Version Manager"                                                                                                          off
   71 "System Load Indicator"                                                                                                         off
-  72 "System Update"                                                                                                                 on
-  73 "Restart after install"                                                                                                         off
+  72 "Git Flow"                                                                                                                      off
+  73 "System Update"                                                                                                                 on
+  74 "Restart after install"                                                                                                         off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -188,9 +189,10 @@ for choice in $choices; do
     68) zshInstaller                 ;;
     69) teamViewerInstaller          ;;
     70) rvmInstaller                 ;;
-    71) systemLoadIndicator          ;;
-    72) systemUpdate                 ;;
-    73) restart                      ;;
+    71) systemLoadIndicatorInstaller ;;
+    72) gitFlowInstaller             ;;
+    73) systemUpdate                 ;;
+    74) restart                      ;;
 
   esac
 

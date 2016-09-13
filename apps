@@ -843,8 +843,17 @@ function teamViewerInstaller {
 
 }
 
-function systemLoadIndicator {
+function systemLoadIndicatorInstaller {
 
   apt-get install indicator-multiload
+
+}
+
+function gitFlowInstaller {
+
+  cd $DOWNLOADS
+  wget --no-check-certificate -q https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh
+  bash gitflow-installer.sh install stable
+  rm gitflow-installer.sh
 
 }
