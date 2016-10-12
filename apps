@@ -857,3 +857,37 @@ function gitFlowInstaller {
   rm gitflow-installer.sh
 
 }
+
+function toolbeltInstaller {
+
+  wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+}
+
+function poeditInstaller {
+
+  apt-get install -y poedit myspell-en-us myspell-pt-br
+
+}
+
+function rustupInstaller {
+
+  if [ ! `which cmake` ]; then
+    apt-get install cmake
+  fi
+
+  curl https://sh.rustup.rs -sSf | sh
+
+  sh -c "echo 'source $HOME/.cargo/env' >> ~/.bashrc"
+
+}
+
+function gitJournalInstaller {
+
+  if [ ! `which rustup` ]; then
+    rustupInstaller
+  fi
+
+  cargo install git-journal
+
+}

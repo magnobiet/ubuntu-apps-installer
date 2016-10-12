@@ -105,8 +105,12 @@ options=(
   70 "Ruby Version Manager"                                                                                                          off
   71 "System Load Indicator"                                                                                                         off
   72 "Git Flow"                                                                                                                      off
-  73 "System Update"                                                                                                                 on
-  74 "Restart after install"                                                                                                         off
+  75 "Git Journal"                                                                                                                   off
+  73 "Poedit"                                                                                                                        off
+  74 "rustup"                                                                                                                        off
+  76 "Heroku Command Line"                                                                                                           off
+  77 "System Update"                                                                                                                 on
+  78 "Restart after install"                                                                                                         off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -191,8 +195,12 @@ for choice in $choices; do
     70) rvmInstaller                 ;;
     71) systemLoadIndicatorInstaller ;;
     72) gitFlowInstaller             ;;
-    73) systemUpdate                 ;;
-    74) restart                      ;;
+    73) gitJournalInstaller          ;;
+    74) poeditInstaller              ;;
+    75) rustupInstaller              ;;
+    76) toolbeltInstaller            ;;
+    77) systemUpdate                 ;;
+    78) restart                      ;;
 
   esac
 
