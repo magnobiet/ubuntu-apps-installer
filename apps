@@ -92,7 +92,7 @@ function nvmInstaller {
 
 function nodeJSPackagesInstaller {
 
-  npm install -g grunt-cli gulp bower yo jshint jscs csslint express sails npm-check-updates
+  npm install -g grunt-cli gulp-cli bower yo jshint jscs csslint express sails npm-check-updates gitignore
 
 }
 
