@@ -33,84 +33,75 @@ source apps
 cmd=(dialog --backtitle "$TITLE" --separate-output --checklist "Select apps to install:" 30 140 23)
 
 options=(
-  01 "Utils (g++, make, build-essential, curl, tree, vim, whois, sshfs, httpie, ntp, zip, unzip)"                                    off
-  02 "Ubuntu Restricted Extras"                                                                                                      off
-  03 "Top (htop, iftop, iotop)"                                                                                                      off
-  04 "Unity Tweak Tool"                                                                                                              off
-  05 "Node.js"                                                                                                                       off
-  06 "Fix NPM Global"                                                                                                                off
-  07 "Node.js Version Manager"                                                                                                       off
-  08 "Node.js Packages (grunt-cli, gulp, yo, bower, jshint, jscs, csslint, express, sails)"                                          off
-  09 "Python"                                                                                                                        off
-  10 "The Fuck (Requires Python)"                                                                                                    off
-  11 "Ruby"                                                                                                                          off
-  12 "Ruby Packages (sass, scss-lint, rhc)"                                                                                          off
-  13 "nginx"                                                                                                                         off
-  14 "Apache2"                                                                                                                       off
-  15 "PHP5 (cli, curl, dev, fpm, gd, geoip, json, mcrypt, memcache, memcached, mongo, mysql, oauth, pgsql, sqlite, xcache, xdebug)"  off
-  16 "Composer"                                                                                                                      off
-  17 "MySQL"                                                                                                                         off
-  18 "MySQL Workbench"                                                                                                               off
-  19 "PostgreSQL"                                                                                                                    off
-  20 "pgAdmin"                                                                                                                       off
-  21 "MongoDB"                                                                                                                       off
-  22 "MongoChef"                                                                                                                     off
-  23 "Sublime Text"                                                                                                                  off
-  24 "DropBox"                                                                                                                       off
-  25 "ownCloud"                                                                                                                      off
-  26 "Mega"                                                                                                                          off
-  27 "Google Chrome"                                                                                                                 off
-  28 "TimeShift"                                                                                                                     off
-  29 "ScreenCloud"                                                                                                                   off
-  30 "KeePass X"                                                                                                                     off
-  31 "Reset MS Mice (Fixes Abnormal Scroll Wheel Problems with Certain Microsoft Mice)"                                              off
-  32 "Ajenti"                                                                                                                        off
-  33 "Webmin"                                                                                                                        off
-  34 "Spotify"                                                                                                                       off
-  35 "uGet Download Manager"                                                                                                         off
-  36 "MS and OSX fonts"                                                                                                              off
-  37 "Diff tools (Diffuse, Meld)"                                                                                                    off
-  38 "VirtualBox"                                                                                                                    off
-  39 "Vagrant (Requires VirtualBox)"                                                                                                 off
-  40 "Homestead (Requires Vagrant)"                                                                                                  off
-  41 "Java"                                                                                                                          off
-  42 "Apache Maven"                                                                                                                  off
-  43 "NetBeans"                                                                                                                      off
-  44 "Android Studio"                                                                                                                off
-  44 "Microsoft Visual Studio Code"                                                                                                  off
-  45 "TexLive"                                                                                                                       off
-  46 "Texmaker"                                                                                                                      off
-  48 "Kazam Screencaster"                                                                                                            off
-  49 "Skype"                                                                                                                         off
-  50 "Viber"                                                                                                                         off
-  51 "Nylas N1"                                                                                                                      off
-  52 "Brave"                                                                                                                         off
-  53 "Yandex Disk"                                                                                                                   off
-  54 "Yumi"                                                                                                                          off
-  55 "Steam"                                                                                                                         off
-  56 "PHP Storm"                                                                                                                     off
-  57 "DataGrip"                                                                                                                      off
-  58 "Idea UI"                                                                                                                       off
-  59 "PyCharm Community"                                                                                                             off
-  60 "PyCharm Professional"                                                                                                          off
-  61 "PyCharm Edu"                                                                                                                   off
-  62 "Ruby Mine"                                                                                                                     off
-  63 "CLIon"                                                                                                                         off
-  64 "WebStorm"                                                                                                                      off
-  65 "Open365"                                                                                                                       off
-  66 "MEO Cloud"                                                                                                                     off
-  67 "Genymotion"                                                                                                                    off
-  68 "ZSH"                                                                                                                           off
-  69 "TeamViewer"                                                                                                                    off
-  70 "Ruby Version Manager"                                                                                                          off
-  71 "System Load Indicator"                                                                                                         off
-  72 "Git Flow"                                                                                                                      off
-  75 "Git Journal"                                                                                                                   off
-  73 "Poedit"                                                                                                                        off
-  74 "rustup"                                                                                                                        off
-  76 "Heroku Command Line"                                                                                                           off
-  77 "System Update"                                                                                                                 on
-  78 "Restart after install"                                                                                                         off
+  01 "Utils (g++, make, build-essential, curl, tree, vim, whois, sshfs, httpie, ntp, zip, unzip)" off
+  02 "Ubuntu Restricted Extras"                                                                   off
+  03 "Top (htop, iftop, iotop)"                                                                   off
+  04 "Unity Tweak Tool"                                                                           off
+  05 "Node.js"                                                                                    off
+  06 "Node.js Version Manager"                                                                    off
+  07 "Node.js Packages (grunt-cli, gulp-cli, bower, npm-check-updates, gitignore)"                off
+  08 "Python"                                                                                     off
+  09 "The Fuck (Requires Python)"                                                                 off
+  10 "Ruby"                                                                                       off
+  11 "Ruby Packages (sass, scss-lint, rhc)"                                                       off
+  12 "nginx"                                                                                      off
+  13 "Apache2"                                                                                    off
+  14 "PHP5 (cli, curl, dev, fpm, gd, mcrypt, memcache, xdebug...)"                                off
+  15 "Composer"                                                                                   off
+  16 "MySQL"                                                                                      off
+  17 "MySQL Workbench"                                                                            off
+  18 "PostgreSQL"                                                                                 off
+  19 "pgAdmin"                                                                                    off
+  20 "MongoDB"                                                                                    off
+  21 "MongoChef"                                                                                  off
+  22 "Sublime Text"                                                                               off
+  23 "DropBox"                                                                                    off
+  24 "ownCloud"                                                                                   off
+  25 "Mega"                                                                                       off
+  26 "Google Chrome"                                                                              off
+  27 "TimeShift"                                                                                  off
+  28 "ScreenCloud"                                                                                off
+  29 "KeePass X"                                                                                  off
+  30 "Reset MS Mice (Fixes Abnormal Scroll Wheel Problems with Certain Microsoft Mice)"           off
+  31 "Ajenti"                                                                                     off
+  32 "Webmin"                                                                                     off
+  33 "Spotify"                                                                                    off
+  34 "uGet Download Manager"                                                                      off
+  35 "MS and OSX fonts"                                                                           off
+  36 "Diff tools (Diffuse, Meld)"                                                                 off
+  37 "VirtualBox"                                                                                 off
+  38 "Vagrant (Requires VirtualBox)"                                                              off
+  39 "Homestead (Requires Vagrant)"                                                               off
+  40 "Java"                                                                                       off
+  41 "Apache Maven"                                                                               off
+  42 "NetBeans"                                                                                   off
+  43 "Android Studio"                                                                             off
+  44 "Microsoft Visual Studio Code"                                                               off
+  45 "TexLive"                                                                                    off
+  46 "Texmaker"                                                                                   off
+  47 "Kazam Screencaster"                                                                         off
+  48 "Skype"                                                                                      off
+  49 "Viber"                                                                                      off
+  50 "Nylas N1"                                                                                   off
+  51 "Brave"                                                                                      off
+  52 "Yandex Disk"                                                                                off
+  53 "Yumi"                                                                                       off
+  54 "Steam"                                                                                      off
+  55 "JetBrains Toolbox App"                                                                      off
+  56 "Open365"                                                                                    off
+  57 "MEO Cloud"                                                                                  off
+  58 "Genymotion"                                                                                 off
+  59 "ZSH"                                                                                        off
+  60 "TeamViewer"                                                                                 off
+  61 "Ruby Version Manager"                                                                       off
+  62 "System Load Indicator"                                                                      off
+  63 "Git Flow"                                                                                   off
+  64 "Git Journal"                                                                                off
+  65 "Poedit"                                                                                     off
+  66 "rustup"                                                                                     off
+  67 "Heroku Command Line"                                                                        off
+  68 "System Update"                                                                              on
+  69 "Restart system after install"                                                               off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -128,79 +119,70 @@ for choice in $choices; do
     03) topInstaller                 ;;
     04) unityTweakInstaller          ;;
     05) nodeJSInstaller              ;;
-    06) fixNpmGlobal                 ;;
-    07) nvmInstaller                 ;;
-    08) nodeJSPackagesInstaller      ;;
-    09) pythonInstaller              ;;
-    10) theFuckInstaller             ;;
-    11) rubyInstaller                ;;
-    12) rubyPackagesInstaller        ;;
-    13) nginxInstaller               ;;
-    14) apacheInstaller              ;;
-    15) phpInstaller                 ;;
-    16) composerInstaller            ;;
-    17) mysqlInstaller               ;;
-    18) mysqlWorkbenchInstaller      ;;
-    19) postgresInstaller            ;;
-    20) pgAdminInstaller             ;;
-    22) mongoDBInstaller             ;;
-    22) mongoCheffInstaller          ;;
-    23) sublimeTextInstaller         ;;
-    24) dropboxInstaller             ;;
-    25) ownCloudInstaller            ;;
-    26) megaInstaller                ;;
-    27) chromeInstaller              ;;
-    28) timeShiftInstaller           ;;
-    29) screenCloudInstaller         ;;
-    30) keePassXInstaller            ;;
-    31) resetMsMiceInstaller         ;;
-    32) ajentiInstaller              ;;
-    33) webminInstaller              ;;
-    34) spotifyInstaller             ;;
-    35) ugetInstaller                ;;
-    36) fontsInstaller               ;;
-    37) diffToolsInstaller           ;;
-    38) virtualBoxInstaller          ;;
-    39) vagrantInstaller             ;;
-    40) homesteadInstaller           ;;
-    41) javaInstaller                ;;
-    42) mavenInstaller               ;;
-    43) netbeansInstaller            ;;
-    44) androidStudioInstaller       ;;
-    45) visualStudioCodeInstaller    ;;
-    46) texliveInstaller             ;;
-    47) texmakerInstaller            ;;
-    48) kazamScreencasterInstaller   ;;
-    49) skypeInstaller               ;;
-    50) viberInstaller               ;;
-    51) nylasN1Installer             ;;
-    52) braveInstaller               ;;
-    53) yandexDiskInstaller          ;;
-    54) yumiInstaller                ;;
-    55) steamInstaller               ;;
-    56) phpStormInstaller            ;;
-    57) dataGripInstaller            ;;
-    58) ideaUltimateInstaller        ;;
-    59) pyCharmProfessionalInstaller ;;
-    60) pyCharmCommunityInstaller    ;;
-    61) pyCharmEduInstaller          ;;
-    62) rubyMineInstaller            ;;
-    63) clionInstaller               ;;
-    64) webStormInstaller            ;;
-    65) open365Installer             ;;
-    66) meoCloudInstaller            ;;
-    67) genymotionInstaller          ;;
-    68) zshInstaller                 ;;
-    69) teamViewerInstaller          ;;
-    70) rvmInstaller                 ;;
-    71) systemLoadIndicatorInstaller ;;
-    72) gitFlowInstaller             ;;
-    73) gitJournalInstaller          ;;
-    74) poeditInstaller              ;;
-    75) rustupInstaller              ;;
-    76) toolbeltInstaller            ;;
-    77) systemUpdate                 ;;
-    78) restart                      ;;
+    06) nvmInstaller                 ;;
+    07) nodeJSPackagesInstaller      ;;
+    08) pythonInstaller              ;;
+    09) theFuckInstaller             ;;
+    10) rubyInstaller                ;;
+    11) rubyPackagesInstaller        ;;
+    12) nginxInstaller               ;;
+    13) apacheInstaller              ;;
+    14) phpInstaller                 ;;
+    15) composerInstaller            ;;
+    16) mysqlInstaller               ;;
+    17) mysqlWorkbenchInstaller      ;;
+    18) postgresInstaller            ;;
+    19) pgAdminInstaller             ;;
+    20) mongoDBInstaller             ;;
+    21) mongoCheffInstaller          ;;
+    22) sublimeTextInstaller         ;;
+    23) dropboxInstaller             ;;
+    24) ownCloudInstaller            ;;
+    25) megaInstaller                ;;
+    26) chromeInstaller              ;;
+    27) timeShiftInstaller           ;;
+    28) screenCloudInstaller         ;;
+    29) keePassXInstaller            ;;
+    30) resetMsMiceInstaller         ;;
+    31) ajentiInstaller              ;;
+    32) webminInstaller              ;;
+    33) spotifyInstaller             ;;
+    34) ugetInstaller                ;;
+    35) fontsInstaller               ;;
+    36) diffToolsInstaller           ;;
+    37) virtualBoxInstaller          ;;
+    38) vagrantInstaller             ;;
+    39) homesteadInstaller           ;;
+    40) javaInstaller                ;;
+    41) mavenInstaller               ;;
+    42) netbeansInstaller            ;;
+    43) androidStudioInstaller       ;;
+    44) visualStudioCodeInstaller    ;;
+    45) texliveInstaller             ;;
+    46) texmakerInstaller            ;;
+    47) kazamScreencasterInstaller   ;;
+    48) skypeInstaller               ;;
+    49) viberInstaller               ;;
+    50) nylasN1Installer             ;;
+    51) braveInstaller               ;;
+    52) yandexDiskInstaller          ;;
+    53) yumiInstaller                ;;
+    54) steamInstaller               ;;
+    55) jetBrainsToolboxAppInstaller ;;
+    56) open365Installer             ;;
+    57) meoCloudInstaller            ;;
+    58) genymotionInstaller          ;;
+    59) zshInstaller                 ;;
+    60) teamViewerInstaller          ;;
+    61) rvmInstaller                 ;;
+    62) systemLoadIndicatorInstaller ;;
+    63) gitFlowInstaller             ;;
+    64) gitJournalInstaller          ;;
+    65) poeditInstaller              ;;
+    66) rustupInstaller              ;;
+    67) toolbeltInstaller            ;;
+    68) systemUpdate                 ;;
+    69) restart                      ;;
 
   esac
 
