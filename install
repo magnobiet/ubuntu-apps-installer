@@ -100,8 +100,9 @@ options=(
   65 "Poedit"                                                                                     off
   66 "rustup"                                                                                     off
   67 "Heroku Command Line"                                                                        off
-  68 "System Update"                                                                              on
-  69 "Restart system after install"                                                               off
+  68 "Yarn (Node.js Dependency Management)"                                                       off
+  69 "System Update"                                                                              on
+  70 "Restart system after install"                                                               off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -181,8 +182,9 @@ for choice in $choices; do
     65) poeditInstaller              ;;
     66) rustupInstaller              ;;
     67) toolbeltInstaller            ;;
-    68) systemUpdate                 ;;
-    69) restart                      ;;
+    68) yarnInstaller                ;;
+    69) systemUpdate                 ;;
+    70) restart                      ;;
 
   esac
 
