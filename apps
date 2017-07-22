@@ -554,13 +554,13 @@ function androidStudioInstaller {
 
   cd $DOWNLOADS
 
-  wget -c https://dl.google.com/dl/android/studio/ide-zips/2.1.3.0/android-studio-ide-143.3101438-linux.zip
+  wget -c https://dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio-ide-162.4069837-linux.zip
 
   if [ ! `which unzip` ]; then
     apt-get install -y unzip
   fi
 
-  unzip android-studio-ide-143.3101438-linux.zip
+  unzip android-studio-ide-162.4069837-linux.zip
   mv android-studio /opt/
 
     echo '[Desktop Entry]
@@ -800,5 +800,34 @@ function gitJournalInstaller {
   fi
 
   cargo install git-journal
+
+}
+
+function fixDownloadExtraFailure {
+
+  apt purge ttf-mscorefonts-installer
+
+  cd $DOWNLOADS
+  wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+  apt-get install ttf-mscorefonts-installer_3.6_all.deb
+
+}
+
+function noIpInstaller {
+
+  #
+  # https://www.noip.com/support/knowledgebase/installing-the-linux-dynamic-update-client-on-ubuntu/
+  #
+
+  cd /usr/local/src/
+  wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
+
+  tar xf noip-duc-linux.tar.gz
+  cd noip-2.1.9-1/
+
+  make install
+
+  /usr/local/bin/noip2 -C
+  /usr/local/bin/noip2
 
 }
