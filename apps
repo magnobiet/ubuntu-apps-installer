@@ -107,7 +107,7 @@ function yarnInstaller {
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
   apt-get update
-  apt-get install yarn
+  apt-get install -y yarn
 
 
 }
@@ -324,7 +324,7 @@ function ownCloudInstaller {
 
   fi
 
-  apt-get install owncloud-client
+  apt-get install -y owncloud-client
   apt-get update
 
 }
@@ -428,7 +428,7 @@ function spotifyInstaller {
   echo "deb http://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list
 
   apt-get update
-  apt-get install spotify-client
+  apt-get install -y spotify-client
 
 }
 
@@ -644,7 +644,7 @@ function skypeInstaller {
   wget -c http://get.skype.com/go/getskype-linux-beta-ubuntu-64 -O skype-ubuntu.deb
   dpkg -i skype*.deb
 
-  apt-get install sni-qt:i386
+  apt-get install -y sni-qt:i386
 
   if [ ! `which dconf-editor` ]; then
     dconfEditor
@@ -756,7 +756,7 @@ function teamViewerInstaller {
 
 function systemLoadIndicatorInstaller {
 
-  apt-get install indicator-multiload
+  apt-get install -y indicator-multiload
 
 }
 
@@ -784,7 +784,7 @@ function poeditInstaller {
 function rustupInstaller {
 
   if [ ! `which cmake` ]; then
-    apt-get install cmake
+    apt-get install -y cmake
   fi
 
   curl https://sh.rustup.rs -sSf | sh
@@ -809,7 +809,7 @@ function fixDownloadExtraFailure {
 
   cd $DOWNLOADS
   wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
-  apt-get install ttf-mscorefonts-installer_3.6_all.deb
+  apt-get install -y ttf-mscorefonts-installer_3.6_all.deb
 
 }
 
