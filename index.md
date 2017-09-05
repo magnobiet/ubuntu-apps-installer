@@ -1,6 +1,6 @@
 # 🐧 Ubuntu Apps Installer
 
-![Screenshot](screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/magnobiet/ubuntu-apps-installer/master/screenshot.png)
 
 ## Installation
 
