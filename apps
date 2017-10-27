@@ -847,3 +847,12 @@ function braveInstaller {
   apt-get install -y brave
 
 }
+
+function terminatorInstaller {
+
+  add-apt-repository -y ppa:gnome-terminator/ppa
+
+  apt-get update
+  apt-get install -y terminator
+
+}

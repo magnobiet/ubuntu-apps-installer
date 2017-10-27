@@ -102,8 +102,9 @@ options=(
   67 "Heroku Command Line"                                                                        off
   68 "Yarn (Node.js Dependency Management)"                                                       off
   69 "Brave Browser"                                                                              off
-  70 "System Update"                                                                              on
-  71 "Restart system after install"                                                               off
+  70 "Terminator"                                                                                 off
+  71 "System Update"                                                                              on
+  72 "Restart system after install"                                                               off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -185,8 +186,9 @@ for choice in $choices; do
     67) toolbeltInstaller            ;;
     68) yarnInstaller                ;;
     69) braveInstaller               ;;
-    70) systemUpdate                 ;;
-    71) restart                      ;;
+    70) terminatorInstaller          ;;
+    71) systemUpdate                 ;;
+    72) restart                      ;;
 
   esac
 
