@@ -25,7 +25,8 @@ function utilsInstaller {
   apt-get install -y g++ make build-essential \
                      curl tree vim \
                      whois sshfs httpie ntp \
-                     zip unzip p7zip-full
+                     zip unzip p7zip-full \
+                     git bash-completion
 
 }
 
