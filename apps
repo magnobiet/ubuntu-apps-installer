@@ -770,6 +770,10 @@ function gitFlowInstaller {
   bash gitflow-installer.sh install stable
   rm gitflow-installer.sh
 
+  wget -c https://raw.githubusercontent.com/bobthecow/git-flow-completion/master/git-flow-completion.bash \
+    -O git-flow \
+    -P /etc/bash_completion.d
+
 }
 
 function toolbeltInstaller {
