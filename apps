@@ -26,7 +26,8 @@ function utilsInstaller {
                      curl tree vim \
                      whois sshfs httpie ntp \
                      zip unzip p7zip-full \
-                     git bash-completion
+                     git bash-completion \
+                     exfat-fuse exfat-utils
 
 }
 
