@@ -871,7 +871,7 @@ function dockerInstaller {
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
   apt-get update
-  apt-get install docker-ce
+  apt-get install -y docker-ce
 
   usermod -a -G docker $USER_NAME
 
@@ -879,5 +879,28 @@ function dockerInstaller {
 
   curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
+
+}
+
+function postmanInstaller {
+
+  cd $DOWNLOADS
+
+  wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+  tar -xzf postman.tar.gz -C /opt
+  rm postman.tar.gz
+
+  ln -s /opt/Postman/Postman /usr/bin/postman
+
+  echo '[Desktop Entry]
+[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Exec=postman
+Icon=/opt/Postman/resources/app/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Development;
+  ' > /usr/share/applications/postman.desktop
 
 }

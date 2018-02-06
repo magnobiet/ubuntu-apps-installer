@@ -104,8 +104,9 @@ options=(
   69 "Brave Browser"                                                                              off
   70 "Terminator"                                                                                 off
   71 "Docker"                                                                                     off
-  72 "System Update"                                                                              on
-  73 "Restart system after install"                                                               off
+  72 "Postman"                                                                                    off
+  73 "System Update"                                                                              on
+  74 "Restart system after install"                                                               off
 )
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -189,8 +190,9 @@ for choice in $choices; do
     69) braveInstaller               ;;
     70) terminatorInstaller          ;;
     71) dockerInstaller              ;;
-    72) systemUpdate                 ;;
-    73) restart                      ;;
+    72) postmanInstaller             ;;
+    73) systemUpdate                 ;;
+    74) restart                      ;;
 
   esac
 
